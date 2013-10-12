@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'sidekiq/spy/version'
+require 'sidekiq_spy/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "sidekiq-spy"
-  spec.version       = Sidekiq::Spy::VERSION
+  spec.version       = SidekiqSpy::VERSION
   spec.authors       = ["tiredpixel"]
   spec.email         = ["tp@tiredpixel.com"]
   spec.description   = %q{TODO: Write a gem description}
