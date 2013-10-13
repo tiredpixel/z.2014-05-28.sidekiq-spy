@@ -27,8 +27,8 @@ describe SidekiqSpy::Config do
       @config.database.must_equal 0
     end
     
-    it "sets namespace to ''" do
-      @config.namespace.must_equal ''
+    it "sets namespace to nil" do
+      @config.namespace.must_be_nil
     end
     
     it "sets interval to 5" do
