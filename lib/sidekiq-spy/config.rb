@@ -26,5 +26,9 @@ module SidekiqSpy
       @database = url.path.tr('/', '').to_i unless url.path.empty?
     end
     
+    def url
+      "redis://#{@host}:#{@port}/#{@database}"
+    end
+    
   end
 end
