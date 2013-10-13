@@ -90,3 +90,10 @@ end.parse!
   
   params.each { |p| c.send("#{p}=", options[p]) unless options[p].nil? }
 end
+
+
+# = Run app
+
+trap('INT') { @app.stop }
+
+@app.start
