@@ -123,4 +123,18 @@ describe SidekiqSpy::Config do
     end
   end
   
+  describe "#url" do
+    before do
+      @config = SidekiqSpy::Config.new
+      
+      @config.host     = 'da.example.com'
+      @config.port     = 237
+      @config.database = 42
+    end
+    
+    it "returns connection string URL" do
+      @config.url.must_equal 'redis://da.example.com:237/42'
+    end
+  end
+  
 end
