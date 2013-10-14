@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-require File.expand_path('../../../lib/sidekiq-spy/app', __FILE__)
+require File.expand_path('../../../lib/sidekiq-spy', __FILE__)
 
 
 describe SidekiqSpy::App do

@@ -59,12 +59,15 @@ module SidekiqSpy
     end
     
     def setup
+      @screen = Display::Screen.new
     end
     
     def refresh
+      @screen.refresh
     end
     
     def cleanup
+      @screen.close if @screen
     end
     
   end
