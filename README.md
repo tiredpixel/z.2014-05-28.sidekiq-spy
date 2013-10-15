@@ -1,5 +1,7 @@
 # Sidekiq Spy
 
+[![Build Status](https://travis-ci.org/tiredpixel/sidekiq-spy.png?branch=master,develop)](https://travis-ci.org/tiredpixel/sidekiq-spy)
+
 [Sidekiq](https://github.com/mperham/sidekiq) monitoring in the console.
 A bit like Sidekiq::Web. But without the web.
 
