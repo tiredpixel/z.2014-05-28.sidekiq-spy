@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require File.expand_path('../../helper', __FILE__)
 
 require File.expand_path('../../../lib/sidekiq-spy/config', __FILE__)
 require File.expand_path('../../../lib/sidekiq-spy/app', __FILE__)
