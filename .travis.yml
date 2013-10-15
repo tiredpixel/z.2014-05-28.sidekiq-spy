@@ -7,6 +7,7 @@ rvm:
 notifications:
   email:
     recipients:
+      - tp@tiredpixel.com
       - sidekiq.spy@librelist.com
 matrix:
   allow_failures:
