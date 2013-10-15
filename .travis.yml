@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - jruby-19mode
+  - rbx-19mode
+  - 2.0.0
+notifications:
+  email:
+    recipients:
+      - tp@tiredpixel.com
+      - sidekiq.spy@librelist.com
+matrix:
+  allow_failures:
+    - rvm: 1.9.3
+    - rvm: jruby-19mode
+    - rvm: rbx-19mode

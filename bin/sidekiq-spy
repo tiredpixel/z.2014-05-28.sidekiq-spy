@@ -1,0 +1,99 @@
+#!/usr/bin/env ruby
+
+$stdout.sync = true
+
+require 'optparse'
+
+require File.expand_path('../../lib/sidekiq-spy', __FILE__)
+
+
+# = Parse opts
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.version = "v#{SidekiqSpy::VERSION}"
+  
+  opts.banner = opts.ver
+  
+  opts.separator ""
+  opts.separator "Usage: sidekiq-spy [OPTIONS]"
+  
+  opts.on("-u", "--url URL",
+    "Redis connection string URL"
+  ) { |o| options[:url] = o }
+  
+  opts.on("-h", "--host HOSTNAME",
+    "Redis hostname (default: 127.0.0.1)"
+  ) { |o| options[:host] = o }
+  
+  opts.on("-p", "--port PORT", Integer,
+    "Redis port (default: 6379)"
+  ) { |o| options[:port] = o }
+  
+  opts.on("-d", "--database DATABASE", Integer,
+    "Redis database (default: 0)"
+  ) { |o| options[:database] = o }
+  
+  opts.on("-n", "--namespace NAMESPACE",
+    "Redis namespace (default: '')"
+  ) { |o| options[:namespace] = o }
+  
+  opts.on("-i", "--interval INTERVAL", Integer,
+    "Refresh every INTERVAL s (default: 5)"
+  ) { |o| options[:interval] = o }
+  
+  opts.separator ""
+  opts.separator "Examples:"
+  
+  opts.separator [
+    "sidekiq-spy",
+    "sidekiq-spy -u redis://da.example.com:237/42",
+    "sidekiq-spy -h da.example.com -p 237 -d 42",
+    "sidekiq-spy -n resque -i 1",
+  ].map { |e| "  #{e}" }
+  
+  opts.separator ""
+  
+  opts.on_tail("--help",
+    "Output (this) help and exit"
+  ) do
+    puts opts
+    exit
+  end
+  
+  opts.on_tail("--version",
+    "Output version and exit"
+  ) do
+    puts opts.ver
+    exit
+  end
+end.parse!
+
+
+# = Create app
+
+@app = SidekiqSpy::App.new
+
+
+# = Configure
+
+@app.configure do |c|
+  params = [
+    :url,
+    :host,
+    :port,
+    :database,
+    :namespace,
+    :interval,
+  ]
+  
+  params.each { |p| c.send("#{p}=", options[p]) unless options[p].nil? }
+end
+
+
+# = Run app
+
+trap('INT') { @app.stop }
+
+@app.start
