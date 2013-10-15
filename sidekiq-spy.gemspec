@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = SidekiqSpy::VERSION
   spec.authors       = ["tiredpixel"]
   spec.email         = ["tp@tiredpixel.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Sidekiq monitoring in the console. A bit like Sidekiq::Web. But without the web.}
+  spec.summary       = %q{Sidekiq monitoring in the console.}
+  spec.homepage      = "https://github.com/tiredpixel/sidekiq-spy"
   spec.license       = "MIT"
   
   spec.files         = `git ls-files`.split($/)
