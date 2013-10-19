@@ -3,10 +3,12 @@ require File.expand_path('../../helper', __FILE__)
 require File.expand_path('../../../lib/sidekiq-spy', __FILE__)
 
 
-def run_and_kill(proc)
-  thread = Thread.new { proc.call }
+def start_and_stop_app(app)
+  thread = Thread.new { app.start }
   
-  sleep 1
+  app.stop
+  
+  thread.join(2)
   
   Thread.kill(thread)
 end
@@ -153,19 +155,19 @@ describe SidekiqSpy::App do
     it "calls #setup hook" do
       @app.expects(:setup)
       
-      run_and_kill(-> { @app.start })
+      start_and_stop_app(@app)
     end
     
     it "calls #refresh hook" do
       @app.expects(:refresh)
       
-      run_and_kill(-> { @app.start })
+      start_and_stop_app(@app)
     end
     
-    it "calls #refresh hook" do
+    it "calls #cleanup hook" do
       @app.expects(:cleanup)
       
-      run_and_kill(-> { @app.start })
+      start_and_stop_app(@app)
     end
   end
   
