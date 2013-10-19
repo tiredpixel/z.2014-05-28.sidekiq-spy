@@ -6,45 +6,35 @@ require File.expand_path('../../../helper', __FILE__)
 require File.expand_path('../../../../lib/sidekiq-spy/spy/stats', __FILE__)
 
 
-module RedisOverride
-  def info
-    JSON.parse(File.read(
-      File.expand_path('../../../fixtures/redis_info.json', __FILE__)
-    ))
-  end
-end
-
-module RedisClientOverride
-  def location; 'da.example.com:237'; end
-  def db; 42; end
-end
-
-
 describe SidekiqSpy::Spy::Stats do
   
   before do
     @redis = Redis::Namespace.new('resque', :redis => Redis.new)
-    @redis.extend(RedisOverride)
-    @redis.client.extend(RedisClientOverride)
+    
+    @redis.stubs(:info).returns(JSON.parse(File.read(
+      File.expand_path('../../../fixtures/redis_info.json', __FILE__)
+    )))
+    
+    @redis.client.stubs(:location).returns('da.example.com:237')
+    @redis.client.stubs(:db).returns(42)
     
     Sidekiq.configure_client do |config|
       config.redis = ConnectionPool.new(:size => 1, &proc { @redis })
     end
     
-    @sidekiq_stats = MiniTest::Mock.new
-    @sidekiq_stats.expect(:enqueued,       16776977673)
-    @sidekiq_stats.expect(:retry_size,     924984826746)
-    @sidekiq_stats.expect(:scheduled_size, 317321542620)
-    @sidekiq_stats.expect(:processed,      923531545885)
-    @sidekiq_stats.expect(:failed,         779187529140)
+    Sidekiq::Stats.stubs(:new).returns(stub(
+      :enqueued       => 16776977673,
+      :retry_size     => 924984826746,
+      :scheduled_size => 317321542620,
+      :processed      => 923531545885,
+      :failed         => 779187529140
+    ))
     
-    @sidekiq_workers = MiniTest::Mock.new
-    @sidekiq_workers.expect(:size, 162165179294)
+    Sidekiq::Workers.stubs(:new).returns(stub(
+      :size => 162165179294
+    ))
     
-    @stats = SidekiqSpy::Spy::Stats.new({
-      :sidekiq_stats   => @sidekiq_stats,
-      :sidekiq_workers => @sidekiq_workers,
-    })
+    @stats = SidekiqSpy::Spy::Stats.new
   end
   
   describe "#connection" do
