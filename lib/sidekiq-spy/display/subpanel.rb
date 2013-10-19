@@ -10,13 +10,13 @@ module SidekiqSpy
         @left   = left
         
         @data = {
-          :left  => opts[:data_l],
-          :right => opts[:data_r],
+          :left  => opts[:data_l] || '',
+          :right => opts[:data_r] || '',
         }
         
         @dividers = {
-          :left  => opts[:divider_l].to_s,
-          :right => opts[:divider_r].to_s,
+          :left  => opts[:divider_l] || '',
+          :right => opts[:divider_r] || '',
         }
         
         @content_width = @width - @dividers.values.map(&:length).inject(:+)
@@ -36,10 +36,10 @@ module SidekiqSpy
       private
       
       def content(data_l, data_r, width)
-        l = data_l.is_a?(Proc) ? data_l.call : data_l.to_s
-        r = data_r.is_a?(Proc) ? data_r.call : data_r.to_s
+        l = data_l.is_a?(Proc) ? data_l.call : data_l
+        r = data_r.is_a?(Proc) ? data_r.call : data_r
         
-        l + "%#{width - l.length}s" % r
+        "#{l}%#{width - l.length}s" % r
       end
       
     end
