@@ -3,7 +3,6 @@
 [![Gem Version](https://badge.fury.io/rb/sidekiq-spy.png)](http://badge.fury.io/rb/sidekiq-spy)
 [![Build Status](https://travis-ci.org/tiredpixel/sidekiq-spy.png?branch=master,develop)](https://travis-ci.org/tiredpixel/sidekiq-spy)
 [![Code Climate](https://codeclimate.com/github/tiredpixel/sidekiq-spy.png)](https://codeclimate.com/github/tiredpixel/sidekiq-spy)
-[![Coverage Status](https://coveralls.io/repos/tiredpixel/sidekiq-spy/badge.png?branch=master,develop)](https://coveralls.io/r/tiredpixel/sidekiq-spy)
 
 [Sidekiq](https://github.com/mperham/sidekiq) monitoring in the console.
 A bit like Sidekiq::Web. But without the web.
