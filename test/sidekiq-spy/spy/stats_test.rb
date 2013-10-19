@@ -21,14 +21,14 @@ describe SidekiqSpy::Spy::Stats do
       )),
     }
     
-    @sidekiq_stats = Minitest::Mock.new
+    @sidekiq_stats = MiniTest::Mock.new
     @sidekiq_stats.expect(:enqueued,       16776977673)
     @sidekiq_stats.expect(:retry_size,     924984826746)
     @sidekiq_stats.expect(:scheduled_size, 317321542620)
     @sidekiq_stats.expect(:processed,      923531545885)
     @sidekiq_stats.expect(:failed,         779187529140)
     
-    @sidekiq_workers = Minitest::Mock.new
+    @sidekiq_workers = MiniTest::Mock.new
     @sidekiq_workers.expect(:size, 162165179294)
     
     Sidekiq::Stats.stub(:new, @sidekiq_stats) do
