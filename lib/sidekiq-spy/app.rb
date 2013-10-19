@@ -7,7 +7,7 @@ module SidekiqSpy
     attr_reader :running
     
     def initialize
-      @running     = false
+      @running = false
     end
     
     def config
@@ -63,7 +63,7 @@ module SidekiqSpy
     end
     
     def refresh
-      @screen.refresh
+      @screen.refresh if @screen
     end
     
     def cleanup
