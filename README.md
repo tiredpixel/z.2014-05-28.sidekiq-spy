@@ -1,7 +1,7 @@
 # Sidekiq Spy
 
 [![Gem Version](https://badge.fury.io/rb/sidekiq-spy.png)](http://badge.fury.io/rb/sidekiq-spy)
-[![Build Status](https://travis-ci.org/tiredpixel/sidekiq-spy.png?branch=master,develop)](https://travis-ci.org/tiredpixel/sidekiq-spy)
+[![Build Status](https://travis-ci.org/tiredpixel/sidekiq-spy.png?branch=master,stable)](https://travis-ci.org/tiredpixel/sidekiq-spy)
 [![Code Climate](https://codeclimate.com/github/tiredpixel/sidekiq-spy.png)](https://codeclimate.com/github/tiredpixel/sidekiq-spy)
 
 [Sidekiq](https://github.com/mperham/sidekiq) monitoring in the console.
