@@ -4,13 +4,15 @@ require File.expand_path('../../../lib/sidekiq-spy', __FILE__)
 
 
 def start_and_stop_app(app)
-  thread = Thread.new { app.start }
+  app_thread = Thread.new { app.start }
+  
+  sleep 1 # patience, patience; give app time to start
   
   app.stop
   
-  thread.join(2)
+  app_thread.join(2)
   
-  Thread.kill(thread)
+  Thread.kill(app_thread)
 end
 
 
