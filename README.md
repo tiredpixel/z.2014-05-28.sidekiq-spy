@@ -95,6 +95,11 @@ stuck on something, then just wave. :)
 
 Do whatever makes you happy. We'll probably still like you. :)
 
+The latest 'edge' is the `develop` branch.
+The latest release is the `master` branch.
+Releases are from `develop`, merged into `master`, tagged, and pushed as a gem.
+`master` periodically gets merged back into `develop`.
+
 Tests are written using [minitest](https://github.com/seattlerb/minitest),
 which is included by default in Ruby 1.9 onwards. To run all tests:
 
