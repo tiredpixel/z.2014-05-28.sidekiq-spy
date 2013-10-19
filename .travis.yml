@@ -10,6 +10,5 @@ notifications:
       - tp@tiredpixel.com
 matrix:
   allow_failures:
-    - rvm: 1.9.3
     - rvm: jruby-19mode
     - rvm: rbx-19mode

@@ -6,45 +6,50 @@ require File.expand_path('../../../helper', __FILE__)
 require File.expand_path('../../../../lib/sidekiq-spy/spy/stats', __FILE__)
 
 
+module RedisOverride
+  def info
+    JSON.parse(File.read(
+      File.expand_path('../../../fixtures/redis_info.json', __FILE__)
+    ))
+  end
+end
+
+module RedisClientOverride
+  def location; 'da.example.com:237'; end
+  def db; 42; end
+end
+
+
 describe SidekiqSpy::Spy::Stats do
   
   before do
     @redis = Redis::Namespace.new('resque', :redis => Redis.new)
+    @redis.extend(RedisOverride)
+    @redis.client.extend(RedisClientOverride)
     
     Sidekiq.configure_client do |config|
       config.redis = ConnectionPool.new(:size => 1, &proc { @redis })
     end
     
-    @fixtures = {
-      :redis_info => JSON.parse(File.read(
-        File.expand_path('../../../fixtures/redis_info.json', __FILE__)
-      )),
-    }
-    
-    @sidekiq_stats = Minitest::Mock.new
+    @sidekiq_stats = MiniTest::Mock.new
     @sidekiq_stats.expect(:enqueued,       16776977673)
     @sidekiq_stats.expect(:retry_size,     924984826746)
     @sidekiq_stats.expect(:scheduled_size, 317321542620)
     @sidekiq_stats.expect(:processed,      923531545885)
     @sidekiq_stats.expect(:failed,         779187529140)
     
-    @sidekiq_workers = Minitest::Mock.new
+    @sidekiq_workers = MiniTest::Mock.new
     @sidekiq_workers.expect(:size, 162165179294)
     
-    Sidekiq::Stats.stub(:new, @sidekiq_stats) do
-      Sidekiq::Workers.stub(:new, @sidekiq_workers) do
-        @stats = SidekiqSpy::Spy::Stats.new
-      end
-    end
+    @stats = SidekiqSpy::Spy::Stats.new({
+      :sidekiq_stats   => @sidekiq_stats,
+      :sidekiq_workers => @sidekiq_workers,
+    })
   end
   
   describe "#connection" do
     it "returns stat connection" do
-      @redis.client.stub(:location, 'da.example.com:237') do
-        @redis.client.stub(:db, 42) do
-          @stats.connection.must_equal 'da.example.com:237/42'
-        end
-      end
+      @stats.connection.must_equal 'da.example.com:237/42'
     end
   end
   
@@ -56,33 +61,25 @@ describe SidekiqSpy::Spy::Stats do
   
   describe "#uptime" do
     it "returns stat uptime" do
-      @redis.stub(:info, @fixtures[:redis_info]) do
-        @stats.uptime.must_equal '7'
-      end
+      @stats.uptime.must_equal '7'
     end
   end
   
   describe "#connections" do
     it "returns stat connections" do
-      @redis.stub(:info, @fixtures[:redis_info]) do
-        @stats.connections.must_equal '8'
-      end
+      @stats.connections.must_equal '8'
     end
   end
   
   describe "#memory" do
     it "returns stat memory" do
-      @redis.stub(:info, @fixtures[:redis_info]) do
-        @stats.memory.must_equal '5.16M'
-      end
+      @stats.memory.must_equal '5.16M'
     end
   end
   
   describe "#memory_peak" do
     it "returns stat memory_peak" do
-      @redis.stub(:info, @fixtures[:redis_info]) do
-        @stats.memory_peak.must_equal '5.14M'
-      end
+      @stats.memory_peak.must_equal '5.14M'
     end
   end
   
