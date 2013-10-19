@@ -5,10 +5,9 @@ module SidekiqSpy
   module Spy
     class Stats
       
-      def initialize(opts = {})
-        @sidekiq = opts[:sidekiq] || Sidekiq
-        @stats   = opts[:sidekiq_stats] || Sidekiq::Stats.new
-        @workers = opts[:sidekiq_workers] || Sidekiq::Workers.new
+      def initialize
+        @stats   = Sidekiq::Stats.new
+        @workers = Sidekiq::Workers.new
       end
       
       def connection
@@ -66,7 +65,7 @@ module SidekiqSpy
       # private
       
       def redis
-        @sidekiq.redis { |c| yield c }
+        Sidekiq.redis { |c| yield c }
       end
       
     end
