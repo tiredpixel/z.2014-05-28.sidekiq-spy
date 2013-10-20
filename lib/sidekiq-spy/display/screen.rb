@@ -14,8 +14,10 @@ module SidekiqSpy
         @height = Curses.lines
         @width  = Curses.cols
         
-        @panels = {
-          :header => Display::Panels::Header.new(8, @width, 0, 0),
+        @panels = { # attach panels, defining height, width, top, left
+          :header        => Display::Panels::Header.new(      1, @width, 0, 0),
+          :redis_stats   => Display::Panels::RedisStats.new(  3, @width, 1, 0),
+          :sidekiq_stats => Display::Panels::SidekiqStats.new(2, @width, 5, 0),
         }
       end
       
