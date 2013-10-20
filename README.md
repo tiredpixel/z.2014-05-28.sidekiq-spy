@@ -54,13 +54,13 @@ That's about it.
 
 ## ASCII Art (a.k.a. Screenshot)
 
-    Sidekiq Spy 0.0.1                       |                         01:02:58 +0100
+    Sidekiq Spy 0.1.0                                                 17:47:17 +0100
     redis:                               127.0.0.1:6379/0|namespace:
-    redis version:      2.6.11|uptime (d):              8|connections:             3
-    memory:              4.84M|memory peak:        13.52M|
+    redis version:      2.6.11|uptime (d):              2|connections:             9
+    memory:              4.97M|memory peak:         5.23M|
 
-    busy:                    0|retries:                 0|processed:            1304
-    enqueued:                0|scheduled:               0|failed:               1236
+    busy:                    0|retries:                15|processed:            1515
+    enqueued:                0|scheduled:               0|failed:               1446
 
 
 ## Stay Tuned
@@ -76,7 +76,6 @@ That was easy.
 
 Dear Me, Here is a vague wishlist:
 
-- more tests for the display parts
 - Workers table on main page
 - Queues page
 - Retries page
