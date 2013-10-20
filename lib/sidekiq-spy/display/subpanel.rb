@@ -2,6 +2,14 @@ module SidekiqSpy
   module Display
     class Subpanel
       
+      attr_reader :height
+      attr_reader :width
+      attr_reader :top
+      attr_reader :left
+      attr_reader :data
+      attr_reader :dividers
+      attr_reader :content_width
+      
       def initialize(window, height, width, top, left, opts = {})
         @window = window
         @height = height

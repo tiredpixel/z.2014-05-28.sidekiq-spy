@@ -48,11 +48,11 @@ describe SidekiqSpy::Display::Screen do
     end
     
     it "sets height" do
-      @screen.instance_variable_get(:@height).must_equal 24
+      @screen.height.must_equal 24
     end
     
     it "sets width" do
-      @screen.instance_variable_get(:@width).must_equal 80
+      @screen.width.must_equal 80
     end
   end
   

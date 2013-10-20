@@ -5,6 +5,9 @@ module SidekiqSpy
   module Display
     class Screen
       
+      attr_reader :height
+      attr_reader :width
+      
       def initialize
         Curses.init_screen
         Curses.nl

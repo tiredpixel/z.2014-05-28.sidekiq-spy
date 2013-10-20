@@ -18,37 +18,37 @@ describe SidekiqSpy::Display::Subpanel do
       end
       
       it "sets height" do
-        @subpanel.instance_variable_get(:@height).must_equal 24
+        @subpanel.height.must_equal 24
       end
       
       it "sets width" do
-        @subpanel.instance_variable_get(:@width).must_equal 80
+        @subpanel.width.must_equal 80
       end
       
       it "sets top" do
-        @subpanel.instance_variable_get(:@top).must_equal 1
+        @subpanel.top.must_equal 1
       end
       
       it "sets left" do
-        @subpanel.instance_variable_get(:@left).must_equal 2
+        @subpanel.left.must_equal 2
       end
       
       it "defaults data" do
-        @subpanel.instance_variable_get(:@data).must_equal({
+        @subpanel.data.must_equal({
           :left  => '',
           :right => '',
         })
       end
       
       it "defaults dividers" do
-        @subpanel.instance_variable_get(:@dividers).must_equal({
+        @subpanel.dividers.must_equal({
           :left  => '',
           :right => '',
         })
       end
       
       it "calculates content_width" do
-        @subpanel.instance_variable_get(:@content_width).must_equal 80
+        @subpanel.content_width.must_equal 80
       end
     end
     
@@ -63,21 +63,21 @@ describe SidekiqSpy::Display::Subpanel do
       end
       
       it "sets data" do
-        @subpanel.instance_variable_get(:@data).must_equal({
+        @subpanel.data.must_equal({
           :left  => 'key:',
           :right => 'value',
         })
       end
       
       it "sets dividers" do
-        @subpanel.instance_variable_get(:@dividers).must_equal({
+        @subpanel.dividers.must_equal({
           :left  => '<',
           :right => '/>',
         })
       end
       
       it "calculates content_width" do
-        @subpanel.instance_variable_get(:@content_width).must_equal 77
+        @subpanel.content_width.must_equal 77
       end
     end
   end
