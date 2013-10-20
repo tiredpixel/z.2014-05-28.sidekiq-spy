@@ -3,10 +3,6 @@ module SidekiqSpy
     
     def t
       {
-        divider: {
-          left:  "",
-          right: "|",
-        },
         program: "Sidekiq Spy #{VERSION}",
         redis: {
           connection: "redis:",

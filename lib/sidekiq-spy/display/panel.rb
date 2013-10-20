@@ -5,6 +5,8 @@ module SidekiqSpy
   module Display
     class Panel
       
+      include Translatable
+      
       def initialize(height, width, top, left, structure, opts = {})
         @height = height
         @width  = width

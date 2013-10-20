@@ -9,3 +9,7 @@ require File.expand_path('../sidekiq-spy/spy/stats', __FILE__)
 require File.expand_path('../sidekiq-spy/display/screen', __FILE__)
 require File.expand_path('../sidekiq-spy/display/panel', __FILE__)
 require File.expand_path('../sidekiq-spy/display/subpanel', __FILE__)
+
+require File.expand_path('../sidekiq-spy/display/panels/header', __FILE__)
+require File.expand_path('../sidekiq-spy/display/panels/redis_stats', __FILE__)
+require File.expand_path('../sidekiq-spy/display/panels/sidekiq_stats', __FILE__)
