@@ -8,8 +8,9 @@ module SidekiqSpy
         end
         
         def structure
-          stats = Spy::Stats.new
-          
+          # [
+          #   [relative_column_width, data_left, data_right]
+          # ]
           [
             [
               [1, t[:program], nil],

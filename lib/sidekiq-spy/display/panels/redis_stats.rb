@@ -10,6 +10,9 @@ module SidekiqSpy
         def structure
           stats = Spy::Stats.new
           
+          # [
+          #   [relative_column_width, data_left, data_right]
+          # ]
           [
             [
               [2, t[:redis][:connection], -> { stats.connection }],
