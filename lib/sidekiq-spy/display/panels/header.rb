@@ -4,12 +4,7 @@ module SidekiqSpy
       class Header < Display::Panel
         
         def initialize(height, width, top, left)
-          opts = {
-            :divider_l => t[:divider][:left],
-            :divider_r => t[:divider][:right],
-          }
-          
-          super(height, width, top, left, structure, opts)
+          super(height, width, top, left, structure, :divider_r => "|")
         end
         
         def structure
