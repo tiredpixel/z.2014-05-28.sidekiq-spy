@@ -25,6 +25,7 @@ describe SidekiqSpy::Display::Screen do
       :nl           => nil,
       :noecho       => nil,
       :curs_set     => nil,
+      :timeout=     => nil,
       :lines        => 24,
       :cols         => 80
     )
@@ -81,6 +82,14 @@ describe SidekiqSpy::Display::Screen do
       @screen.instance_variable_set(:@panels, { :panel2 => @panel2 })
       
       @screen.refresh
+    end
+  end
+  
+  describe "#next_key" do
+    it "gets next key" do
+      Curses.expects(:getch)
+      
+      @screen.next_key
     end
   end
   

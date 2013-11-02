@@ -5,6 +5,8 @@ module SidekiqSpy
   module Display
     class Screen
       
+      CURSES_GETCH_TIMEOUT = 100
+      
       attr_reader :height
       attr_reader :width
       
@@ -13,6 +15,7 @@ module SidekiqSpy
         Curses.nl
         Curses.noecho
         Curses.curs_set(0)
+        Curses.timeout = CURSES_GETCH_TIMEOUT
         
         @height = Curses.lines
         @width  = Curses.cols
@@ -32,6 +35,10 @@ module SidekiqSpy
       
       def refresh
         @panels.each { |pname, panel| panel.refresh }
+      end
+      
+      def next_key
+        Curses.getch
       end
       
     end

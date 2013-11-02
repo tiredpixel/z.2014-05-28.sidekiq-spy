@@ -166,6 +166,12 @@ describe SidekiqSpy::App do
       start_and_stop_app(@app)
     end
     
+    it "calls #next_key hook" do
+      @app.expects(:next_key).at_least_once
+      
+      start_and_stop_app(@app)
+    end
+    
     it "calls #cleanup hook" do
       @app.expects(:cleanup)
       
@@ -180,6 +186,18 @@ describe SidekiqSpy::App do
     
     it "sets status not-running" do
       @app.stop
+      
+      @app.running.must_equal false
+    end
+  end
+  
+  describe "#do_command" do
+    before do
+      @app.instance_variable_set(:@running, true)
+    end
+    
+    it "<q> sets status not-running" do
+      @app.do_command(:q)
       
       @app.running.must_equal false
     end
