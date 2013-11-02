@@ -5,6 +5,8 @@ require 'sidekiq'
 module SidekiqSpy
   class App
     
+    REFRESH_SUBINTERVAL = 0.1
+    
     attr_reader :running
     
     def initialize
@@ -82,9 +84,9 @@ module SidekiqSpy
         @sleep_timer = config.interval
         
         while @running && @sleep_timer > 0
-          sleep 1
+          sleep REFRESH_SUBINTERVAL
           
-          @sleep_timer -= 1
+          @sleep_timer -= REFRESH_SUBINTERVAL
         end
       end
     end

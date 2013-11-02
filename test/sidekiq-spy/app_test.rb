@@ -140,18 +140,18 @@ describe SidekiqSpy::App do
       Thread.kill(thread_app)
     end
     
-    it "stops running within 2s" do
+    it "stops running within 1s" do
       thread_app = Thread.new { @app.start }
       
       sleep 1 # patience, patience; give app time to start
       
       @app.stop; t0 = Time.now
       
-      thread_app.join(3)
+      thread_app.join(2)
       
       Thread.kill(thread_app)
       
-      assert_operator (Time.now - t0), :<=, 2
+      assert_operator (Time.now - t0), :<=, 1
     end
     
     it "calls #setup hook" do
