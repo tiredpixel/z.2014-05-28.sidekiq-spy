@@ -197,7 +197,7 @@ describe SidekiqSpy::App do
     end
     
     it "<q> sets status not-running" do
-      @app.do_command(:q)
+      @app.do_command('q')
       
       @app.running.must_equal false
     end

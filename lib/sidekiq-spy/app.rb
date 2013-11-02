@@ -49,8 +49,8 @@ module SidekiqSpy
     end
     
     def do_command(key)
-      case key.to_sym
-      when :q # quit
+      case key
+      when 'q' # quit
         @running = false
       end
     end
