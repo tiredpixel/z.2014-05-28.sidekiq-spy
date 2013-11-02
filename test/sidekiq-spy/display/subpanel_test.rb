@@ -111,6 +111,21 @@ describe SidekiqSpy::Display::Subpanel do
           
           @subpanel.refresh
         end
+        
+        it "sets truncated data when too long" do
+          @subpanel = SidekiqSpy::Display::Subpanel.new(@window, 24, 10, 1, 2, {
+            :data_l    => 'key:',
+            :data_r    => 'value',
+            :divider_l => '<-',
+            :divider_r => '|',
+          })
+          
+          @window.stubs(:setpos)
+          
+          @window.expects(:addstr).with("<-key:val|")
+          
+          @subpanel.refresh
+        end
       end
       
       describe "when unchanged" do
