@@ -21,6 +21,13 @@ module SidekiqSpy
           scheduled: "scheduled:",
           failed: "failed:",
         },
+        heading: {
+          worker: "WORKER",
+          queue: "QUEUE",
+          class: "CLASS",
+          args: "ARGUMENTS",
+          started_at: "STARTED",
+        }
       }
     end
     
