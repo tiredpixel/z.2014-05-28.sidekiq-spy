@@ -47,7 +47,7 @@ module SidekiqSpy
         l = data_l.is_a?(Proc) ? data_l.call : data_l
         r = data_r.is_a?(Proc) ? data_r.call : data_r
         
-        ("#{l}%#{width - l.length}s" % r)[0...width]
+        ("#{l}%#{width - (l ? l.length : 0)}s" % r)[0...width]
       end
       
     end

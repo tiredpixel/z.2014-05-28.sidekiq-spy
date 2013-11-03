@@ -167,6 +167,19 @@ describe SidekiqSpy::Display::Subpanel do
         
         @subpanel.refresh
       end
+      
+      it "sets empty data when nil" do
+        @subpanel = SidekiqSpy::Display::Subpanel.new(@window, 24, 10, 0, 0, {
+          :data_l => -> { nil },
+          :data_r => -> { nil }
+        })
+        
+        @window.stubs(:setpos)
+        
+        @window.expects(:addstr).with("          ")
+        
+        @subpanel.refresh
+      end
     end
   end
   
