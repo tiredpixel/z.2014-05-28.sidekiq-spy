@@ -1,9 +1,8 @@
 # Sidekiq Spy
 
 [![Gem Version](https://badge.fury.io/rb/sidekiq-spy.png)](http://badge.fury.io/rb/sidekiq-spy)
-[![Build Status](https://travis-ci.org/tiredpixel/sidekiq-spy.png?branch=master,develop)](https://travis-ci.org/tiredpixel/sidekiq-spy)
+[![Build Status](https://travis-ci.org/tiredpixel/sidekiq-spy.png?branch=master,stable)](https://travis-ci.org/tiredpixel/sidekiq-spy)
 [![Code Climate](https://codeclimate.com/github/tiredpixel/sidekiq-spy.png)](https://codeclimate.com/github/tiredpixel/sidekiq-spy)
-[![Coverage Status](https://coveralls.io/repos/tiredpixel/sidekiq-spy/badge.png?branch=master,develop)](https://coveralls.io/r/tiredpixel/sidekiq-spy)
 
 [Sidekiq](https://github.com/mperham/sidekiq) monitoring in the console.
 A bit like Sidekiq::Web. But without the web.
@@ -13,8 +12,9 @@ see how your workers are doing at-a-glance when SSHed into a remote box with
 no web server, this one's for you. <3
 
 This project is so hot out of the oven you might need mitts. But it's already
-functional, with the main statistics from the Sidekiq::Web homepage. In time,
-it would be nice to add the Workers, Queues, Retries, and Scheduled tabs, too.
+functional, with the main statistics from the Sidekiq::Web homepage and the
+Workers tab. In time, it would be nice to add the Queues, Retries, and
+Scheduled tabs, too.
 
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
 
@@ -50,18 +50,25 @@ We won't tell anyone! ;) (Resque is awesome, too!)
 
     $ sidekiq-spy -n resque
 
-That's about it.
+To quit, press `<q>` or `<ctrl>+<c>`. That's about it.
 
 
 ## ASCII Art (a.k.a. Screenshot)
 
-    Sidekiq Spy 0.0.1                       |                         01:02:58 +0100
+    Sidekiq Spy 0.2.0                                                 16:17:23 +0000
     redis:                               127.0.0.1:6379/0|namespace:
-    redis version:      2.6.11|uptime (d):              8|connections:             3
-    memory:              4.84M|memory peak:        13.52M|
+    redis version:      2.6.11|uptime (d):              2|connections:             5
+    memory:              4.89M|memory peak:         5.03M|
 
-    busy:                    0|retries:                 0|processed:            1304
-    enqueued:                0|scheduled:               0|failed:               1236
+    busy:                    5|retries:                15|processed:            1623
+    enqueued:                0|scheduled:               0|failed:               1535
+
+    WORKER                      QUEUE         CLASS         ARGUMENTS        STARTED
+    sep.da.local:17045-70130396 default       MakeSEPFields [2670]        2013-11-03
+    sep.da.local:17045-70130397 default       MakeSEPFields [2668]        2013-11-03
+    sep.da.local:17045-70130396 default       MakeSEPFields [2669]        2013-11-03
+    sep.da.local:17045-70130397 default       MakeSEPFields [2667]        2013-11-03
+    sep.da.local:17045-70130396 default       MakeSEPFields [2671]        2013-11-03
 
 
 ## Stay Tuned
@@ -77,8 +84,6 @@ That was easy.
 
 Dear Me, Here is a vague wishlist:
 
-- more tests for the display parts
-- Workers table on main page
 - Queues page
 - Retries page
 - Scheduled page

@@ -5,7 +5,16 @@ module SidekiqSpy
   module Display
     class Panel
       
-      def initialize(height, width, top, left, structure, opts = {})
+      include Translatable
+      
+      attr_reader :height
+      attr_reader :width
+      attr_reader :top
+      attr_reader :left
+      attr_reader :dividers
+      attr_reader :divider_length
+      
+      def initialize(height, width, top, left, structure = [], opts = {})
         @height = height
         @width  = width
         @top    = top

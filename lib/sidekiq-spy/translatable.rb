@@ -3,10 +3,6 @@ module SidekiqSpy
     
     def t
       {
-        divider: {
-          left:  "",
-          right: "|",
-        },
         program: "Sidekiq Spy #{VERSION}",
         redis: {
           connection: "redis:",
@@ -25,6 +21,13 @@ module SidekiqSpy
           scheduled: "scheduled:",
           failed: "failed:",
         },
+        heading: {
+          worker: "WORKER",
+          queue: "QUEUE",
+          class: "CLASS",
+          args: "ARGUMENTS",
+          started_at: "STARTED",
+        }
       }
     end
     

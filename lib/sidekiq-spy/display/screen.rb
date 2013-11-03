@@ -5,19 +5,26 @@ module SidekiqSpy
   module Display
     class Screen
       
-      include Translatable
+      CURSES_GETCH_TIMEOUT = 100
+      
+      attr_reader :height
+      attr_reader :width
       
       def initialize
         Curses.init_screen
         Curses.nl
         Curses.noecho
         Curses.curs_set(0)
+        Curses.timeout = CURSES_GETCH_TIMEOUT
         
         @height = Curses.lines
         @width  = Curses.cols
         
-        @panels = {
-          :header => panel_header,
+        @panels = { # attach panels, defining height, width, top, left
+          :header        => Display::Panels::Header.new(      1,             @width, 0, 0),
+          :redis_stats   => Display::Panels::RedisStats.new(  3,             @width, 1, 0),
+          :sidekiq_stats => Display::Panels::SidekiqStats.new(2,             @width, 5, 0),
+          :workers       => Display::Panels::Workers.new(     (@height - 8), @width, 8, 0),
         }
       end
       
@@ -31,50 +38,8 @@ module SidekiqSpy
         @panels.each { |pname, panel| panel.refresh }
       end
       
-      private
-      
-      def panel_header
-        stats = Spy::Stats.new
-        
-        structure = [
-          [
-            [1, t[:program], nil],
-            [1, nil,         -> { Time.now.strftime("%T %z") }],
-          ],
-          [
-            [2, t[:redis][:connection], -> { stats.connection }],
-            [1, t[:redis][:namespace],  -> { stats.namespace }],
-          ],
-          [
-            [1, t[:redis][:version],     -> { stats.redis_version }],
-            [1, t[:redis][:uptime],      -> { stats.uptime }],
-            [1, t[:redis][:connections], -> { stats.connections }],
-          ],
-          [
-            [1, t[:redis][:memory],      -> { stats.memory }],
-            [1, t[:redis][:memory_peak], -> { stats.memory_peak }],
-            [1, nil,                     nil],
-          ],
-          nil,
-          [
-            [1, t[:sidekiq][:busy],      -> { stats.busy }],
-            [1, t[:sidekiq][:retries],   -> { stats.retries }],
-            [1, t[:sidekiq][:processed], -> { stats.processed }],
-          ],
-          [
-            [1, t[:sidekiq][:enqueued],  -> { stats.enqueued }],
-            [1, t[:sidekiq][:scheduled], -> { stats.scheduled }],
-            [1, t[:sidekiq][:failed],    -> { stats.failed }],
-          ],
-          nil,
-        ]
-        
-        opts = {
-          :divider_l => t[:divider][:left],
-          :divider_r => t[:divider][:right],
-        }
-        
-        Display::Panel.new(structure.length, @width, 0, 0, structure, opts)
+      def next_key
+        Curses.getch
       end
       
     end

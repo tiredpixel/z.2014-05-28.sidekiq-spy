@@ -62,7 +62,7 @@ module SidekiqSpy
         @stats.failed
       end
       
-      # private
+      private
       
       def redis
         Sidekiq.redis { |c| yield c }
