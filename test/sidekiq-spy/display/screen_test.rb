@@ -9,6 +9,7 @@ module SidekiqSpy
       class Header; end
       class RedisStats; end
       class SidekiqStats; end
+      class Workers; end
     end
   end
 end
@@ -37,6 +38,7 @@ describe SidekiqSpy::Display::Screen do
     SidekiqSpy::Display::Panels::Header.stubs(:new).returns(@panel)
     SidekiqSpy::Display::Panels::RedisStats.stubs(:new).returns(@panel)
     SidekiqSpy::Display::Panels::SidekiqStats.stubs(:new).returns(@panel)
+    SidekiqSpy::Display::Panels::Workers.stubs(:new).returns(@panel)
     
     @screen = SidekiqSpy::Display::Screen.new
   end
