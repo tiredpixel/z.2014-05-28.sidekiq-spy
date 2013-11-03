@@ -12,8 +12,9 @@ see how your workers are doing at-a-glance when SSHed into a remote box with
 no web server, this one's for you. <3
 
 This project is so hot out of the oven you might need mitts. But it's already
-functional, with the main statistics from the Sidekiq::Web homepage. In time,
-it would be nice to add the Workers, Queues, Retries, and Scheduled tabs, too.
+functional, with the main statistics from the Sidekiq::Web homepage and the
+Workers tab. In time, it would be nice to add the Queues, Retries, and
+Scheduled tabs, too.
 
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
 
@@ -49,7 +50,7 @@ We won't tell anyone! ;) (Resque is awesome, too!)
 
     $ sidekiq-spy -n resque
 
-That's about it.
+To quit, press `<q>` or `<ctrl>+<c>`. That's about it.
 
 
 ## ASCII Art (a.k.a. Screenshot)
@@ -76,7 +77,6 @@ That was easy.
 
 Dear Me, Here is a vague wishlist:
 
-- Workers table on main page
 - Queues page
 - Retries page
 - Scheduled page
