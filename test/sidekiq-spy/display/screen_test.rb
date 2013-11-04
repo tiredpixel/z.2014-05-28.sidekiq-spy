@@ -27,6 +27,7 @@ describe SidekiqSpy::Display::Screen do
       :noecho       => nil,
       :curs_set     => nil,
       :timeout=     => nil,
+      :refresh      => nil,
       :lines        => 24,
       :cols         => 80
     )

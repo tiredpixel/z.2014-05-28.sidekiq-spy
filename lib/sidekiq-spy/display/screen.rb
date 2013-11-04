@@ -26,6 +26,8 @@ module SidekiqSpy
           :sidekiq_stats => Display::Panels::SidekiqStats.new(2,             @width, 5, 0),
           :workers       => Display::Panels::Workers.new(     (@height - 8), @width, 8, 0),
         }
+        
+        Curses.refresh
       end
       
       def close
