@@ -17,8 +17,8 @@ module SidekiqSpy
         Curses.curs_set(0)
         Curses.timeout = CURSES_GETCH_TIMEOUT
         
-        @height = Curses.lines
-        @width  = Curses.cols
+        @height = term_height
+        @width  = term_width
         
         @panels = { # attach panels, defining height, width, top, left
           :header        => Display::Panels::Header.new(      1,             @width, 0, 0),
@@ -42,6 +42,20 @@ module SidekiqSpy
       
       def next_key
         Curses.getch
+      end
+      
+      def missized?
+        @height != term_height || @width != term_width
+      end
+      
+      private
+      
+      def term_height
+        (ENV['LINES'] || Curses.lines).to_i
+      end
+      
+      def term_width
+        (ENV['COLUMNS'] || Curses.cols).to_i
       end
       
     end

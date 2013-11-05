@@ -95,5 +95,6 @@ end
 # = Run app
 
 trap('INT') { @app.stop }
+trap('WINCH') { @app.restart }
 
 @app.start

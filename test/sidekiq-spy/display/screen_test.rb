@@ -96,4 +96,20 @@ describe SidekiqSpy::Display::Screen do
     end
   end
   
+  describe "#missized?" do
+    it "returns false when not missized" do
+      @screen.stubs(:term_height).returns(24)
+      @screen.stubs(:term_width).returns(80)
+      
+      @screen.missized?.must_equal false
+    end
+    
+    it "returns true when missized" do
+      @screen.stubs(:term_height).returns(21)
+      @screen.stubs(:term_width).returns(40)
+      
+      @screen.missized?.must_equal true
+    end
+  end
+  
 end

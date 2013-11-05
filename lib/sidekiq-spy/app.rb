@@ -8,10 +8,12 @@ module SidekiqSpy
     REFRESH_SUBINTERVAL = 0.1
     
     attr_reader :running
+    attr_reader :restarting
     
     def initialize
-      @running = false
-      @threads = {}
+      @running    = false
+      @restarting = false
+      @threads    = {}
     end
     
     def config
@@ -48,6 +50,10 @@ module SidekiqSpy
       @running = false
     end
     
+    def restart
+      @restarting = true
+    end
+    
     def do_command(key)
       case key
       when 'q' # quit
@@ -79,6 +85,14 @@ module SidekiqSpy
     
     def refresh_loop
       while @running do
+        if @restarting || missized? # signal(s) or whilst still resizing
+          cleanup
+          
+          setup
+          
+          @restarting = false
+        end
+        
         refresh
         
         @sleep_timer = config.interval
@@ -101,6 +115,10 @@ module SidekiqSpy
     
     def next_key
       @screen.next_key if @screen
+    end
+    
+    def missized?
+      @screen.missized? if @screen
     end
     
     def cleanup

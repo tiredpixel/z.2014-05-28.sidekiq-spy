@@ -28,6 +28,10 @@ describe SidekiqSpy::App do
     @app.running.must_equal false
   end
   
+  it "sets status not-restarting" do
+    @app.restarting.must_equal false
+  end
+  
   describe "#configure" do
     it "configures Sidekiq" do
       Sidekiq.expects(:configure_client)
@@ -188,6 +192,18 @@ describe SidekiqSpy::App do
       @app.stop
       
       @app.running.must_equal false
+    end
+  end
+  
+  describe "#restart" do
+    before do
+      @app.instance_variable_set(:@restarting, false)
+    end
+    
+    it "sets status restarting" do
+      @app.restart
+      
+      @app.restarting.must_equal true
     end
   end
   
