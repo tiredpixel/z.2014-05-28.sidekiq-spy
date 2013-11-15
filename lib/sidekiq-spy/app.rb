@@ -1,11 +1,8 @@
-require 'thread'
 require 'sidekiq'
 
 
 module SidekiqSpy
   class App
-    
-    REFRESH_SUBINTERVAL = 0.1
     
     attr_reader :running
     attr_reader :restarting
@@ -48,6 +45,8 @@ module SidekiqSpy
     
     def stop
       @running = false
+      
+      @threads.each { |tname, t| t.run if t.status == 'sleep' } # wakey, wakey
     end
     
     def restart
@@ -57,7 +56,7 @@ module SidekiqSpy
     def do_command(key)
       case key
       when 'q' # quit
-        @running = false
+        stop
       end
     end
     
@@ -95,13 +94,7 @@ module SidekiqSpy
         
         refresh
         
-        @sleep_timer = config.interval
-        
-        while @running && @sleep_timer > 0
-          sleep REFRESH_SUBINTERVAL
-          
-          @sleep_timer -= REFRESH_SUBINTERVAL
-        end
+        sleep config.interval # go to sleep; could be rudely awoken on quit
       end
     end
     
