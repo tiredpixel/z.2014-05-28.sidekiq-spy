@@ -104,7 +104,7 @@ trap('WINCH') { @app.restart }
 begin
   @app.start
 rescue => e
-  puts "#{$0}: #{e}"
+  warn "#{$0}: #{e}"
   
   if options[:debug]
     raise # reraise for stacktrace
