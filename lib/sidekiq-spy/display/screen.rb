@@ -28,10 +28,14 @@ module SidekiqSpy
         }
         
         Curses.refresh
+      rescue
+        close
+        
+        raise
       end
       
       def close
-        @panels.each { |pname, panel| panel.close }
+        @panels.each { |pname, panel| panel.close } if @panels
         
         Curses.close_screen
       end
