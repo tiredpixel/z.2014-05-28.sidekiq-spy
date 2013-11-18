@@ -46,7 +46,7 @@ module SidekiqSpy
     def stop
       @running = false
       
-      @threads.each { |tname, t| t.run if t.status == 'sleep' } # wakey, wakey
+      wakey_wakey # for Ctrl+C route; #do_command route already wakes threads
     end
     
     def restart
@@ -55,9 +55,15 @@ module SidekiqSpy
     
     def do_command(key)
       case key
-      when 'q' # quit
+      when 'q' # Q is very natural for Quit; Queues comes second to this
         stop
+      when 'w'
+        @screen.panel_main = :workers
+      when 'u' # Q is already taken
+        @screen.panel_main = :queues
       end
+      
+      wakey_wakey # wake threads for immediate response
     end
     
     private
@@ -78,6 +84,10 @@ module SidekiqSpy
     
     def cleanup
       @screen.close if @screen
+    end
+    
+    def wakey_wakey
+      @threads.each { |tname, t| t.run if t.status == 'sleep' }
     end
     
     def command_loop

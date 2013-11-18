@@ -33,13 +33,17 @@ describe SidekiqSpy::Display::Screen do
     )
     
     @panel = stub(
-      :close => nil
+      :close       => nil,
+      :panel_main= => nil
     )
+    @panel_w = @panel.dup
+    @panel_q = @panel.dup
     
     SidekiqSpy::Display::Panels::Header.stubs(:new).returns(@panel)
     SidekiqSpy::Display::Panels::RedisStats.stubs(:new).returns(@panel)
     SidekiqSpy::Display::Panels::SidekiqStats.stubs(:new).returns(@panel)
-    SidekiqSpy::Display::Panels::Workers.stubs(:new).returns(@panel)
+    SidekiqSpy::Display::Panels::Workers.stubs(:new).returns(@panel_w)
+    SidekiqSpy::Display::Panels::Queues.stubs(:new).returns(@panel_q)
     
     @screen = SidekiqSpy::Display::Screen.new
   end
@@ -109,6 +113,32 @@ describe SidekiqSpy::Display::Screen do
       @screen.stubs(:term_width).returns(40)
       
       @screen.missized?.must_equal true
+    end
+  end
+  
+  describe "#panel_main=" do
+    before do
+      @panels = @screen.instance_variable_get(:@panels)
+    end
+    
+    it "defaults panel_main to workers" do
+      @panels[:main].must_equal @panel_w
+    end
+    
+    it "sets panel_main to workers" do
+      @panels[:main] = nil
+      
+      @screen.panel_main = :workers
+      
+      @screen.instance_variable_get(:@panels)[:main].must_equal @panel_w
+    end
+    
+    it "sets panel_main to queues" do
+      @panels[:main] = nil
+      
+      @screen.panel_main = :queues
+      
+      @screen.instance_variable_get(:@panels)[:main].must_equal @panel_q
     end
   end
   

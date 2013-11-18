@@ -217,12 +217,25 @@ describe SidekiqSpy::App do
   describe "#do_command" do
     before do
       @app.instance_variable_set(:@running, true)
+      @app.instance_variable_set(:@screen, @screen)
     end
     
     it "<q> sets status not-running" do
       @app.do_command('q')
       
       @app.running.must_equal false
+    end
+    
+    it "<w> switches to Workers panel" do
+      @screen.expects(:panel_main=).with(:workers)
+      
+      @app.do_command('w')
+    end
+    
+    it "<u> switches to Queues panel" do
+      @screen.expects(:panel_main=).with(:queues)
+      
+      @app.do_command('u')
     end
   end
   
