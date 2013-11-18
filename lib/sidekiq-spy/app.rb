@@ -109,9 +109,13 @@ module SidekiqSpy
         next unless @screen # HACK: only certain test scenarios?
         
         if @restarting || @screen.missized? # signal(s) or whilst still resizing
+          panel_main = @screen.panel_main
+          
           cleanup
           
           setup
+          
+          @screen.panel_main = panel_main
           
           @restarting = false
         end

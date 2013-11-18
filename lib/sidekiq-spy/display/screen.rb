@@ -53,6 +53,10 @@ module SidekiqSpy
         @height != term_height || @width != term_width
       end
       
+      def panel_main
+        @panels[:header].panel_main
+      end
+      
       def panel_main=(pname)
         @panels[:header].panel_main = pname
         
