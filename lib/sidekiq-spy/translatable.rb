@@ -37,6 +37,7 @@ module SidekiqSpy
           class: "CLASS",
           args: "ARGUMENTS",
           started_at: "STARTED",
+          size: "SIZE",
         }
       }
     end
