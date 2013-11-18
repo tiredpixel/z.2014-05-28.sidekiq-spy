@@ -20,3 +20,4 @@ require File.expand_path('../sidekiq-spy/display/panels/sidekiq_stats', __FILE__
 require File.expand_path('../sidekiq-spy/display/panels/workers', __FILE__)
 require File.expand_path('../sidekiq-spy/display/panels/queues', __FILE__)
 require File.expand_path('../sidekiq-spy/display/panels/retries', __FILE__)
+require File.expand_path('../sidekiq-spy/display/panels/schedules', __FILE__)

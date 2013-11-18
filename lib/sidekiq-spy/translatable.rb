@@ -9,11 +9,13 @@ module SidekiqSpy
             workers: "Workers",
             queues: "qUeues",
             retries: "Retries",
+            schedules: "Scheduled",
           },
           active: {
             workers: "WORKERS",
             queues: "QUEUES",
             retries: "RETRIES",
+            schedules: "SCHEDULED",
           },
         },
         redis: {
@@ -43,6 +45,7 @@ module SidekiqSpy
           next_at: "NEXT",
           count: "COUNT",
           error: "ERROR",
+          scheduled_at: "SCHEDULED",
         }
       }
     end
