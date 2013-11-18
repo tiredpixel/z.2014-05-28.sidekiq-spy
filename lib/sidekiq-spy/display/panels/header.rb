@@ -19,7 +19,7 @@ module SidekiqSpy
             [
               [1, t[:program], nil],
               [2, -> {
-                [:workers, :queues, :retries].map do |e|
+                [:workers, :queues, :retries, :schedules].map do |e|
                   t[:menu][(e == @panel_main ? :active : :inactive)][e]
                 end.join(" ")
               }, nil],
