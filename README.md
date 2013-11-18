@@ -13,10 +13,27 @@ no web server, this one's for you. <3
 
 This project is so hot out of the oven you might need mitts. But it's already
 functional, with the main statistics from the Sidekiq::Web homepage and the
-Workers tab. In time, it would be nice to add the Queues, Retries, and
-Scheduled tabs, too.
+Workers, Queues, Retries, and Scheduled tabs.
 
 More sleep lost by [tiredpixel](http://www.tiredpixel.com).
+
+
+## ASCII Art (a.k.a. Screenshot)
+
+    Sidekiq Spy 0.3.0    WORKERS qUeues Retries Scheduled             16:17:23 +0000
+    redis:                               127.0.0.1:6379/0|namespace:
+    redis version:      2.6.11|uptime (d):              2|connections:             5
+    memory:              4.89M|memory peak:         5.03M|
+
+    busy:                    5|retries:                15|processed:            1623
+    enqueued:                0|scheduled:               0|failed:               1535
+
+    WORKER                      QUEUE         CLASS         ARGUMENTS        STARTED
+    sep.da.local:17045-70130396 default       MakeSEPFields [2670]        2013-11-03
+    sep.da.local:17045-70130397 default       MakeSEPFields [2668]        2013-11-03
+    sep.da.local:17045-70130396 default       MakeSEPFields [2669]        2013-11-03
+    sep.da.local:17045-70130397 default       MakeSEPFields [2667]        2013-11-03
+    sep.da.local:17045-70130396 default       MakeSEPFields [2671]        2013-11-03
 
 
 ## Installation
@@ -50,25 +67,9 @@ We won't tell anyone! ;) (Resque is awesome, too!)
 
     $ sidekiq-spy -n resque
 
+Navigate between tabs using the `<w>`, `<u>`, `<r>`, `<s>` keys.
+
 To quit, press `<q>` or `<ctrl>+<c>`. That's about it.
-
-
-## ASCII Art (a.k.a. Screenshot)
-
-    Sidekiq Spy 0.2.0                                                 16:17:23 +0000
-    redis:                               127.0.0.1:6379/0|namespace:
-    redis version:      2.6.11|uptime (d):              2|connections:             5
-    memory:              4.89M|memory peak:         5.03M|
-
-    busy:                    5|retries:                15|processed:            1623
-    enqueued:                0|scheduled:               0|failed:               1535
-
-    WORKER                      QUEUE         CLASS         ARGUMENTS        STARTED
-    sep.da.local:17045-70130396 default       MakeSEPFields [2670]        2013-11-03
-    sep.da.local:17045-70130397 default       MakeSEPFields [2668]        2013-11-03
-    sep.da.local:17045-70130396 default       MakeSEPFields [2669]        2013-11-03
-    sep.da.local:17045-70130397 default       MakeSEPFields [2667]        2013-11-03
-    sep.da.local:17045-70130396 default       MakeSEPFields [2671]        2013-11-03
 
 
 ## Stay Tuned
@@ -84,9 +85,9 @@ That was easy.
 
 Dear Me, Here is a vague wishlist:
 
-- Queues page
-- Retries page
-- Scheduled page
+- Queue (not Queues) page
+- Retry (not Retries) page
+- Paginated data
 - a little control to go with your monitoring, maybe...
 
 

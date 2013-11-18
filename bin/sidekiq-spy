@@ -55,6 +55,10 @@ OptionParser.new do |opts|
   
   opts.separator ""
   
+  opts.on("--debug", "Run in debug mode") do |o|
+    options[:debug] = o
+  end
+  
   opts.on_tail("--help",
     "Output (this) help and exit"
   ) do
@@ -95,5 +99,16 @@ end
 # = Run app
 
 trap('INT') { @app.stop }
+trap('WINCH') { @app.restart }
 
-@app.start
+begin
+  @app.start
+rescue => e
+  warn "#{$0}: #{e}"
+  
+  if options[:debug]
+    raise # reraise for stacktrace
+  else
+    exit 1 # same non-zero status as when --debug
+  end
+end

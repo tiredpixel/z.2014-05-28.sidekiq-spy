@@ -6,14 +6,16 @@ For many of commits by [tiredpixel](http://www.tiredpixel.com), the commit
 message provides information and examples.
 
 
-## 0.1.0
+## 0.3.0
 
-- first release
-- `sidekiq-spy` executable providing: `--url`, `--host`, `--port`, `--database`,
-  `--namespace`, `--interval`, `--help`, `--version`
-- core Redis statistics: redis, namespace, redis version, uptime (d),
-  connections, memory, memory peak
-- core Sidekiq statistics: busy, retries, processed, enqueued, scheduled, failed
+- sporadic screen-misdraws fix
+- redraw on terminal window resize
+- thread-waking instead of sleep increments for faster responses
+- friendly error-reporting when unreachable host, etc.
+- queues panel (like `Sidekiq::Web` Queues tab); press `<u>`
+- retries panel (like `Sidekiq::Web` Retries tab); press `<r>`
+- scheduled panel (like `Sidekiq::Web` Scheduled tab); press `<s>`
+- `<w>` for existing (default) workers panel
 
 
 ## 0.2.0
@@ -25,3 +27,13 @@ message provides information and examples.
 - smaller sleep increments for faster exit
 - content overrun fix
 - workers panel (like `Sidekiq::Web` Workers tab), reporting who is up to what
+
+
+## 0.1.0
+
+- first release
+- `sidekiq-spy` executable providing: `--url`, `--host`, `--port`, `--database`,
+  `--namespace`, `--interval`, `--help`, `--version`
+- core Redis statistics: redis, namespace, redis version, uptime (d),
+  connections, memory, memory peak
+- core Sidekiq statistics: busy, retries, processed, enqueued, scheduled, failed

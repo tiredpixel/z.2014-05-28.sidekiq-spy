@@ -1,17 +1,16 @@
-require 'thread'
 require 'sidekiq'
 
 
 module SidekiqSpy
   class App
     
-    REFRESH_SUBINTERVAL = 0.1
-    
     attr_reader :running
+    attr_reader :restarting
     
     def initialize
-      @running = false
-      @threads = {}
+      @running    = false
+      @restarting = false
+      @threads    = {}
     end
     
     def config
@@ -46,13 +45,29 @@ module SidekiqSpy
     
     def stop
       @running = false
+      
+      wakey_wakey # for Ctrl+C route; #do_command route already wakes threads
+    end
+    
+    def restart
+      @restarting = true
     end
     
     def do_command(key)
       case key
-      when 'q' # quit
-        @running = false
+      when 'q' # Q is very natural for Quit; Queues comes second to this
+        stop
+      when 'w'
+        @screen.panel_main = :workers
+      when 'u' # Q is already taken
+        @screen.panel_main = :queues
+      when 'r'
+        @screen.panel_main = :retries
+      when 's'
+        @screen.panel_main = :schedules
       end
+      
+      wakey_wakey # wake threads for immediate response
     end
     
     private
@@ -67,9 +82,23 @@ module SidekiqSpy
       end
     end
     
+    def setup
+      @screen = Display::Screen.new
+    end
+    
+    def cleanup
+      @screen.close if @screen
+    end
+    
+    def wakey_wakey
+      @threads.each { |tname, t| t.run if t.status == 'sleep' }
+    end
+    
     def command_loop
       while @running do
-        key = next_key
+        next unless @screen # #refresh_loop might be reattaching screen
+        
+        key = @screen.next_key
         
         next unless key # keep listening if timeout
         
@@ -79,32 +108,24 @@ module SidekiqSpy
     
     def refresh_loop
       while @running do
-        refresh
+        next unless @screen # HACK: only certain test scenarios?
         
-        @sleep_timer = config.interval
-        
-        while @running && @sleep_timer > 0
-          sleep REFRESH_SUBINTERVAL
+        if @restarting || @screen.missized? # signal(s) or whilst still resizing
+          panel_main = @screen.panel_main
           
-          @sleep_timer -= REFRESH_SUBINTERVAL
+          cleanup
+          
+          setup
+          
+          @screen.panel_main = panel_main
+          
+          @restarting = false
         end
+        
+        @screen.refresh
+        
+        sleep config.interval # go to sleep; could be rudely awoken on quit
       end
-    end
-    
-    def setup
-      @screen = Display::Screen.new
-    end
-    
-    def refresh
-      @screen.refresh if @screen
-    end
-    
-    def next_key
-      @screen.next_key if @screen
-    end
-    
-    def cleanup
-      @screen.close if @screen
     end
     
   end

@@ -19,13 +19,24 @@ end
 describe SidekiqSpy::App do
   
   before do
-    SidekiqSpy::Display::Screen.stubs(:new)
+    @screen = stub(
+      :close     => nil,
+      :refresh   => nil,
+      :next_key  => nil,
+      :missized? => nil
+    )
+    
+    SidekiqSpy::Display::Screen.stubs(:new).returns(@screen)
     
     @app = SidekiqSpy::App.new
   end
   
   it "sets status not-running" do
     @app.running.must_equal false
+  end
+  
+  it "sets status not-restarting" do
+    @app.restarting.must_equal false
   end
   
   describe "#configure" do
@@ -160,14 +171,14 @@ describe SidekiqSpy::App do
       start_and_stop_app(@app)
     end
     
-    it "calls #refresh hook" do
-      @app.expects(:refresh)
+    it "calls #refresh on screen" do
+      @screen.expects(:refresh)
       
       start_and_stop_app(@app)
     end
     
-    it "calls #next_key hook" do
-      @app.expects(:next_key).at_least_once
+    it "calls #next_key on screen" do
+      @screen.expects(:next_key).at_least_once
       
       start_and_stop_app(@app)
     end
@@ -191,15 +202,40 @@ describe SidekiqSpy::App do
     end
   end
   
+  describe "#restart" do
+    before do
+      @app.instance_variable_set(:@restarting, false)
+    end
+    
+    it "sets status restarting" do
+      @app.restart
+      
+      @app.restarting.must_equal true
+    end
+  end
+  
   describe "#do_command" do
     before do
       @app.instance_variable_set(:@running, true)
+      @app.instance_variable_set(:@screen, @screen)
     end
     
     it "<q> sets status not-running" do
       @app.do_command('q')
       
       @app.running.must_equal false
+    end
+    
+    it "<w> switches to Workers panel" do
+      @screen.expects(:panel_main=).with(:workers)
+      
+      @app.do_command('w')
+    end
+    
+    it "<u> switches to Queues panel" do
+      @screen.expects(:panel_main=).with(:queues)
+      
+      @app.do_command('u')
     end
   end
   
