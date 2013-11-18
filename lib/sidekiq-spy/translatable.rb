@@ -8,10 +8,12 @@ module SidekiqSpy
           inactive: {
             workers: "Workers",
             queues: "qUeues",
+            retries: "Retries",
           },
           active: {
             workers: "WORKERS",
             queues: "QUEUES",
+            retries: "RETRIES",
           },
         },
         redis: {
@@ -38,6 +40,9 @@ module SidekiqSpy
           args: "ARGUMENTS",
           started_at: "STARTED",
           size: "SIZE",
+          next_at: "NEXT",
+          count: "COUNT",
+          error: "ERROR",
         }
       }
     end

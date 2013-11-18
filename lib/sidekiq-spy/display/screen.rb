@@ -63,6 +63,8 @@ module SidekiqSpy
           Display::Panels::Workers.new((@height - 8), @width, 8, 0)
         when :queues
           Display::Panels::Queues.new((@height - 8), @width, 8, 0)
+        when :retries
+          Display::Panels::Retries.new((@height - 8), @width, 8, 0)
         end
       end
       

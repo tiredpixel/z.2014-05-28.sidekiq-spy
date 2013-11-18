@@ -61,6 +61,8 @@ module SidekiqSpy
         @screen.panel_main = :workers
       when 'u' # Q is already taken
         @screen.panel_main = :queues
+      when 'r'
+        @screen.panel_main = :retries
       end
       
       wakey_wakey # wake threads for immediate response
