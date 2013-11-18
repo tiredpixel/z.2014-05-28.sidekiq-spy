@@ -6,6 +6,18 @@ For many of commits by [tiredpixel](http://www.tiredpixel.com), the commit
 message provides information and examples.
 
 
+## 0.3.0
+
+- sporadic screen-misdraws fix
+- redraw on terminal window resize
+- thread-waking instead of sleep increments for faster responses
+- friendly error-reporting when unreachable host, etc.
+- queues panel (like `Sidekiq::Web` Queues tab); press `<u>`
+- retries panel (like `Sidekiq::Web` Retries tab); press `<r>`
+- scheduled panel (like `Sidekiq::Web` Scheduled tab); press `<s>`
+- `<w>` for existing (default) workers panel
+
+
 ## 0.2.0
 
 - test fixes for Ruby 1.9.3, which is supported along with Ruby 2.0.0
