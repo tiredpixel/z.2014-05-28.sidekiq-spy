@@ -72,9 +72,19 @@ module SidekiqSpy
       end
     end
     
+    def setup
+      @screen = Display::Screen.new
+    end
+    
+    def cleanup
+      @screen.close if @screen
+    end
+    
     def command_loop
       while @running do
-        key = next_key
+        next unless @screen # #refresh_loop might be reattaching screen
+        
+        key = @screen.next_key
         
         next unless key # keep listening if timeout
         
@@ -84,7 +94,9 @@ module SidekiqSpy
     
     def refresh_loop
       while @running do
-        if @restarting || missized? # signal(s) or whilst still resizing
+        next unless @screen # HACK: only certain test scenarios?
+        
+        if @restarting || @screen.missized? # signal(s) or whilst still resizing
           cleanup
           
           setup
@@ -92,30 +104,10 @@ module SidekiqSpy
           @restarting = false
         end
         
-        refresh
+        @screen.refresh
         
         sleep config.interval # go to sleep; could be rudely awoken on quit
       end
-    end
-    
-    def setup
-      @screen = Display::Screen.new
-    end
-    
-    def refresh
-      @screen.refresh if @screen
-    end
-    
-    def next_key
-      @screen.next_key if @screen
-    end
-    
-    def missized?
-      @screen.missized? if @screen
-    end
-    
-    def cleanup
-      @screen.close if @screen
     end
     
   end

@@ -19,7 +19,14 @@ end
 describe SidekiqSpy::App do
   
   before do
-    SidekiqSpy::Display::Screen.stubs(:new)
+    @screen = stub(
+      :close     => nil,
+      :refresh   => nil,
+      :next_key  => nil,
+      :missized? => nil
+    )
+    
+    SidekiqSpy::Display::Screen.stubs(:new).returns(@screen)
     
     @app = SidekiqSpy::App.new
   end
@@ -164,14 +171,14 @@ describe SidekiqSpy::App do
       start_and_stop_app(@app)
     end
     
-    it "calls #refresh hook" do
-      @app.expects(:refresh)
+    it "calls #refresh on screen" do
+      @screen.expects(:refresh)
       
       start_and_stop_app(@app)
     end
     
-    it "calls #next_key hook" do
-      @app.expects(:next_key).at_least_once
+    it "calls #next_key on screen" do
+      @screen.expects(:next_key).at_least_once
       
       start_and_stop_app(@app)
     end
