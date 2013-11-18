@@ -21,11 +21,12 @@ module SidekiqSpy
         @width  = term_width
         
         @panels = { # attach panels, defining height, width, top, left
-          :header        => Display::Panels::Header.new(      1,             @width, 0, 0),
-          :redis_stats   => Display::Panels::RedisStats.new(  3,             @width, 1, 0),
-          :sidekiq_stats => Display::Panels::SidekiqStats.new(2,             @width, 5, 0),
-          :workers       => Display::Panels::Workers.new(     (@height - 8), @width, 8, 0),
+          :header        => Display::Panels::Header.new(      1, @width, 0, 0),
+          :redis_stats   => Display::Panels::RedisStats.new(  3, @width, 1, 0),
+          :sidekiq_stats => Display::Panels::SidekiqStats.new(2, @width, 5, 0),
         }
+        
+        self.panel_main = :workers
         
         Curses.refresh
       rescue
@@ -50,6 +51,19 @@ module SidekiqSpy
       
       def missized?
         @height != term_height || @width != term_width
+      end
+      
+      def panel_main=(pname)
+        @panels[:header].panel_main = pname
+        
+        @panels[:main].close if @panels[:main]
+        
+        @panels[:main] = case pname
+        when :workers
+          Display::Panels::Workers.new((@height - 8), @width, 8, 0)
+        when :queues
+          Display::Panels::Queues.new((@height - 8), @width, 8, 0)
+        end
       end
       
       private

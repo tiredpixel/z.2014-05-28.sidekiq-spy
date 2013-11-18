@@ -4,6 +4,16 @@ module SidekiqSpy
     def t
       {
         program: "Sidekiq Spy #{VERSION}",
+        menu: {
+          inactive: {
+            workers: "Workers",
+            queues: "qUeues",
+          },
+          active: {
+            workers: "WORKERS",
+            queues: "QUEUES",
+          },
+        },
         redis: {
           connection: "redis:",
           namespace: "namespace:",
@@ -27,6 +37,7 @@ module SidekiqSpy
           class: "CLASS",
           args: "ARGUMENTS",
           started_at: "STARTED",
+          size: "SIZE",
         }
       }
     end
