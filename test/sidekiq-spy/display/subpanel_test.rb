@@ -156,7 +156,7 @@ describe SidekiqSpy::Display::Subpanel do
         
         @subpanel = SidekiqSpy::Display::Subpanel.new(@window, 24, 80, 0, 0, {
           :data_l => -> { "the answer:" },
-          :data_r => -> { 2 * 3 * 7 }
+          :data_r => -> { "42" }
         })
       end
       
@@ -164,6 +164,19 @@ describe SidekiqSpy::Display::Subpanel do
         @window.stubs(:setpos)
         
         @window.expects(:addstr).with("the answer:                                                                   42")
+        
+        @subpanel.refresh
+      end
+      
+      it "sets data when non-string" do
+        @subpanel = SidekiqSpy::Display::Subpanel.new(@window, 24, 10, 0, 0, {
+          :data_l => -> { 2 * 3 * 7 },
+          :data_r => -> { 42 }
+        })
+        
+        @window.stubs(:setpos)
+        
+        @window.expects(:addstr).with("42      42")
         
         @subpanel.refresh
       end
