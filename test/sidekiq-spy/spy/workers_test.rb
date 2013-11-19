@@ -20,15 +20,15 @@ describe SidekiqSpy::Spy::Workers do
       },
     }
     
-    @spy_workers_data = {
-      'worker1' => {
+    @spy_workers_data = [
+      {
         :name       => 'worker1',
         :queue      => 'Q',
         :class      => 'Geometry',
         :args       => ['Euclid', 360],
-        :started_at => Time.parse('2325-01-01 00:03:25 +0000')
-      }
-    }
+        :started_at => Time.parse('2325-01-01 00:03:25 +0000'),
+      },
+    ]
     
     @sidekiq_workers_data2 = {
       'worker2' => {
@@ -41,15 +41,15 @@ describe SidekiqSpy::Spy::Workers do
       },
     }
     
-    @spy_workers_data2 = {
-      'worker2' => {
+    @spy_workers_data2 = [
+      {
         :name       => 'worker2',
         :queue      => 'Queueueue',
         :class      => 'Elements',
         :args       => ['Lehrer', 102],
-        :started_at => Time.parse('1928-04-09 00:00:00 +0000')
-      }
-    }
+        :started_at => Time.parse('1928-04-09 00:00:00 +0000'),
+      },
+    ]
     
     Sidekiq::Workers.stubs(:new).returns(@sidekiq_workers_data)
     
@@ -57,8 +57,8 @@ describe SidekiqSpy::Spy::Workers do
   end
   
   describe "#initialize" do
-    it "sets data list of workers" do
-      @workers.data.must_equal(@spy_workers_data)
+    it "sets list of workers" do
+      @workers.to_a.must_equal(@spy_workers_data)
     end
   end
   
@@ -66,7 +66,7 @@ describe SidekiqSpy::Spy::Workers do
     it "doesn't refresh if not called" do
       @sidekiq_workers_data.merge!(@sidekiq_workers_data2)
       
-      @workers.data.must_equal(@spy_workers_data)
+      @workers.to_a.must_equal(@spy_workers_data)
     end
     
     it "refreshes if called" do
@@ -74,7 +74,7 @@ describe SidekiqSpy::Spy::Workers do
       
       @workers.refresh
       
-      @workers.data.must_equal(@spy_workers_data.merge(@spy_workers_data2))
+      @workers.to_a.must_equal(@spy_workers_data + @spy_workers_data2)
     end
   end
   

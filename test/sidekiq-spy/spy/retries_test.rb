@@ -59,8 +59,8 @@ describe SidekiqSpy::Spy::Retries do
   end
   
   describe "#initialize" do
-    it "sets data list of retries" do
-      @retries.data.must_equal(@spy_retries_data)
+    it "sets list of retries" do
+      @retries.to_a.must_equal(@spy_retries_data)
     end
   end
   
@@ -68,7 +68,7 @@ describe SidekiqSpy::Spy::Retries do
     it "doesn't refresh if not called" do
       @sidekiq_retries_data.push(*@sidekiq_retries_data2)
       
-      @retries.data.must_equal(@spy_retries_data)
+      @retries.to_a.must_equal(@spy_retries_data)
     end
     
     it "refreshes if called" do
@@ -76,7 +76,7 @@ describe SidekiqSpy::Spy::Retries do
       
       @retries.refresh
       
-      @retries.data.must_equal(@spy_retries_data + @spy_retries_data2)
+      @retries.to_a.must_equal(@spy_retries_data + @spy_retries_data2)
     end
   end
   
