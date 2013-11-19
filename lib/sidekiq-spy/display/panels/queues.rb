@@ -4,9 +4,7 @@ module SidekiqSpy
       class Queues < Display::Panel
         
         def initialize(height, width, top, left)
-          @height = height # #structure needs this before #initialize ends
-          
-          super(height, width, top, left, structure, :divider_r => " ")
+          super(height, width, top, left, structure(height), :divider_r => " ")
         end
         
         def refresh
@@ -15,7 +13,7 @@ module SidekiqSpy
           super
         end
         
-        def structure
+        def structure(height)
           @queues = Spy::Queues.new
           
           # [
@@ -28,7 +26,7 @@ module SidekiqSpy
             ],
           ]
           
-          (0...(@height - 1)).each do |i|
+          (0...(height - 1)).each do |i|
             s << [ # table row slots
               [2, -> { @queues.data.values[i][:name] rescue nil },  nil],
               [1, nil,                                              -> { @queues.data.values[i][:size] rescue nil }],
