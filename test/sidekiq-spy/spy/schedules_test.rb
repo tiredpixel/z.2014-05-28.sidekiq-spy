@@ -49,8 +49,8 @@ describe SidekiqSpy::Spy::Schedules do
   end
   
   describe "#initialize" do
-    it "sets data list of schedules" do
-      @schedules.data.must_equal(@spy_schedules_data)
+    it "sets list of schedules" do
+      @schedules.to_a.must_equal(@spy_schedules_data)
     end
   end
   
@@ -58,7 +58,7 @@ describe SidekiqSpy::Spy::Schedules do
     it "doesn't refresh if not called" do
       @sidekiq_schedules_data.push(*@sidekiq_schedules_data2)
       
-      @schedules.data.must_equal(@spy_schedules_data)
+      @schedules.to_a.must_equal(@spy_schedules_data)
     end
     
     it "refreshes if called" do
@@ -66,7 +66,7 @@ describe SidekiqSpy::Spy::Schedules do
       
       @schedules.refresh
       
-      @schedules.data.must_equal(@spy_schedules_data + @spy_schedules_data2)
+      @schedules.to_a.must_equal(@spy_schedules_data + @spy_schedules_data2)
     end
   end
   

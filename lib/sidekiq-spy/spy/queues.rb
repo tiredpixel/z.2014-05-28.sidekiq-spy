@@ -5,7 +5,7 @@ module SidekiqSpy
   module Spy
     class Queues
       
-      attr_reader :data
+      include Spy::Dataspyable
       
       def initialize
         @stats = Sidekiq::Stats.new
@@ -14,10 +14,10 @@ module SidekiqSpy
       end
       
       def refresh
-        h = {}
+        h = []
         
         @stats.queues.each do |queue, size|
-          h[queue] = {
+          h << {
             :name => queue,
             :size => size,
           }

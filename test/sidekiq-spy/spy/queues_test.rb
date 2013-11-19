@@ -13,23 +13,23 @@ describe SidekiqSpy::Spy::Queues do
       'queue1' => 42,
     }
     
-    @spy_queues_data = {
-      'queue1' => {
+    @spy_queues_data = [
+      {
         :name => 'queue1',
         :size => 42,
-      }
-    }
+      },
+    ]
     
     @sidekiq_queues_data2 = {
       'queue2' => 1764,
     }
     
-    @spy_queues_data2 = {
-      'queue2' => {
+    @spy_queues_data2 = [
+      {
         :name => 'queue2',
         :size => 1764,
-      }
-    }
+      },
+    ]
     
     Sidekiq::Stats.stubs(:new).returns(stub(
       :queues => @sidekiq_queues_data
@@ -39,8 +39,8 @@ describe SidekiqSpy::Spy::Queues do
   end
   
   describe "#initialize" do
-    it "sets data list of queues" do
-      @queues.data.must_equal(@spy_queues_data)
+    it "sets list of queues" do
+      @queues.to_a.must_equal(@spy_queues_data)
     end
   end
   
@@ -48,7 +48,7 @@ describe SidekiqSpy::Spy::Queues do
     it "doesn't refresh if not called" do
       @sidekiq_queues_data.merge!(@sidekiq_queues_data2)
       
-      @queues.data.must_equal(@spy_queues_data)
+      @queues.to_a.must_equal(@spy_queues_data)
     end
     
     it "refreshes if called" do
@@ -56,7 +56,7 @@ describe SidekiqSpy::Spy::Queues do
       
       @queues.refresh
       
-      @queues.data.must_equal(@spy_queues_data.merge(@spy_queues_data2))
+      @queues.to_a.must_equal(@spy_queues_data + @spy_queues_data2)
     end
   end
   

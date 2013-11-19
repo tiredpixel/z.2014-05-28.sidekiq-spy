@@ -6,7 +6,7 @@ module SidekiqSpy
   module Spy
     class Workers
       
-      attr_reader :data
+      include Spy::Dataspyable
       
       def initialize
         @workers = Sidekiq::Workers.new
@@ -15,10 +15,10 @@ module SidekiqSpy
       end
       
       def refresh
-        h = {}
+        h = []
         
         @workers.each do |worker, msg|
-          h[worker] = {
+          h << {
             :name       => worker,
             :queue      => msg['queue'],
             :class      => msg['payload']['class'],
