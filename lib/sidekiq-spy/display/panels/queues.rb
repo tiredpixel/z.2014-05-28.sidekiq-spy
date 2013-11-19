@@ -5,17 +5,11 @@ module SidekiqSpy
         
         def initialize(height, width, top, left)
           super(height, width, top, left, structure(height), :divider_r => " ")
-        end
-        
-        def refresh
-          @queues.refresh # refresh data feed
           
-          super
+          @spies[:queues] = Spy::Queues.new
         end
         
         def structure(height)
-          @queues = Spy::Queues.new
-          
           # [
           #   [relative_column_width, data_left, data_right]
           # ]
@@ -28,8 +22,8 @@ module SidekiqSpy
           
           (0...(height - 1)).each do |i|
             s << [ # table row slots
-              [2, -> { @queues.data.values[i][:name] rescue nil },  nil],
-              [1, nil,                                              -> { @queues.data.values[i][:size] rescue nil }],
+              [2, -> { @spies[:queues][i][:name] }, nil],
+              [1, nil,                              -> { @spies[:queues][i][:size] }],
             ]
           end
           
