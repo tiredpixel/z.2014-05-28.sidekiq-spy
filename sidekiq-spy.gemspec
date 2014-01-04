@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sidekiq", "~> 2.15"
   spec.add_dependency "curses", "~> 1.0"
   
-  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "bundler", "~> 1.3", "!= 1.5.0"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "mocha", "~> 0.14"
 end
