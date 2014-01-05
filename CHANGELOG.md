@@ -6,6 +6,13 @@ For many of commits by [tiredpixel](http://www.tiredpixel.com), the commit
 message provides information and examples.
 
 
+## 0.3.1
+
+- major refactoring of data structures
+- [#1] `Spy::Stats` data+refresh pattern like `Spy::Workers`
+- curses fix for Ruby 2.1.0, which is now supported
+
+
 ## 0.3.0
 
 - sporadic screen-misdraws fix

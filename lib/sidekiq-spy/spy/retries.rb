@@ -1,4 +1,3 @@
-require 'time'
 require 'sidekiq'
 
 
@@ -6,7 +5,7 @@ module SidekiqSpy
   module Spy
     class Retries
       
-      attr_reader :data
+      include Spy::Dataspyable
       
       def initialize
         @retries = Sidekiq::RetrySet.new

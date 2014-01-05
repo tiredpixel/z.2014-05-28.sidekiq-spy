@@ -39,73 +39,73 @@ describe SidekiqSpy::Spy::Stats do
   
   describe "#connection" do
     it "returns stat connection" do
-      @stats.connection.must_equal 'da.example.com:237/42'
+      @stats[:connection].must_equal 'da.example.com:237/42'
     end
   end
   
   describe "#namespace" do
     it "returns stat namespace" do
-      @stats.namespace.must_equal 'resque'
+      @stats[:namespace].must_equal 'resque'
     end
   end
   
   describe "#uptime" do
     it "returns stat uptime" do
-      @stats.uptime.must_equal '7'
+      @stats[:uptime].must_equal '7'
     end
   end
   
   describe "#connections" do
     it "returns stat connections" do
-      @stats.connections.must_equal '8'
+      @stats[:connections].must_equal '8'
     end
   end
   
   describe "#memory" do
     it "returns stat memory" do
-      @stats.memory.must_equal '5.16M'
+      @stats[:memory].must_equal '5.16M'
     end
   end
   
   describe "#memory_peak" do
     it "returns stat memory_peak" do
-      @stats.memory_peak.must_equal '5.14M'
+      @stats[:memory_peak].must_equal '5.14M'
     end
   end
   
   describe "#busy" do
     it "returns stat busy" do
-      @stats.busy.must_equal 162165179294
+      @stats[:busy].must_equal 162165179294
     end
   end
   
   describe "#enqueued" do
     it "returns stat enqueued" do
-      @stats.enqueued.must_equal 16776977673
+      @stats[:enqueued].must_equal 16776977673
     end
   end
   
   describe "#retries" do
     it "returns stat retries" do
-      @stats.retries.must_equal 924984826746
+      @stats[:retries].must_equal 924984826746
     end
   end
   
   describe "#scheduled" do
     it "returns stat scheduled" do
-      @stats.scheduled.must_equal 317321542620
+      @stats[:scheduled].must_equal 317321542620
     end
   end
   
   describe "#processed" do
     it "returns stat processed" do
-      @stats.processed.must_equal 923531545885
+      @stats[:processed].must_equal 923531545885
     end
   end
   
   describe "#failed" do
     it "returns stat failed" do
-      @stats.failed.must_equal 779187529140
+      @stats[:failed].must_equal 779187529140
     end
   end
   

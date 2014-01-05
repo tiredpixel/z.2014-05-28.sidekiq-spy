@@ -5,7 +5,7 @@ module SidekiqSpy
   module Spy
     class Schedules
       
-      attr_reader :data
+      include Spy::Dataspyable
       
       def initialize
         @schedules = Sidekiq::ScheduledSet.new

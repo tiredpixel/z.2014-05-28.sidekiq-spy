@@ -4,20 +4,12 @@ module SidekiqSpy
       class Workers < Display::Panel
         
         def initialize(height, width, top, left)
-          @height = height # #structure needs this before #initialize ends
+          super(height, width, top, left, structure(height), :divider_r => " ")
           
-          super(height, width, top, left, structure, :divider_r => " ")
+          @spies[:workers] = Spy::Workers.new
         end
         
-        def refresh
-          @workers.refresh # refresh data feed
-          
-          super
-        end
-        
-        def structure
-          @workers = Spy::Workers.new
-          
+        def structure(height)
           # [
           #   [relative_column_width, data_left, data_right]
           # ]
@@ -31,13 +23,13 @@ module SidekiqSpy
             ],
           ]
           
-          (0...(@height - 1)).each do |i|
+          (0...(height - 1)).each do |i|
             s << [ # table row slots
-              [2, -> { @workers.data.values[i][:name] rescue nil },  nil],
-              [1, -> { @workers.data.values[i][:queue] rescue nil }, nil],
-              [1, -> { @workers.data.values[i][:class] rescue nil }, nil],
-              [1, -> { @workers.data.values[i][:args] rescue nil },  nil],
-              [1, nil,                                               -> { @workers.data.values[i][:started_at] rescue nil }],
+              [2, -> { @spies[:workers][i][:name] },  nil],
+              [1, -> { @spies[:workers][i][:queue] }, nil],
+              [1, -> { @spies[:workers][i][:class] }, nil],
+              [1, -> { @spies[:workers][i][:args] },  nil],
+              [1, nil,                                -> { @spies[:workers][i][:started_at] }],
             ]
           end
           

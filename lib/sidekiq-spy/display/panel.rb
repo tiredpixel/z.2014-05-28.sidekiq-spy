@@ -30,6 +30,8 @@ module SidekiqSpy
         @window = Curses::Window.new(@height, @width, @top, @left)
         
         @subpanels = build_subpanels(structure)
+        
+        @spies = {} # data sources for #structure
       end
       
       def close
@@ -37,6 +39,8 @@ module SidekiqSpy
       end
       
       def refresh
+        @spies.each { |_, s| s.refresh } # refresh data sources
+        
         @subpanels.each(&:refresh) # build changes 
         
         @window.refresh # push changes to window

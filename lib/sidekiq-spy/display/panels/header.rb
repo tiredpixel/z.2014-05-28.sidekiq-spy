@@ -1,3 +1,6 @@
+require 'time'
+
+
 module SidekiqSpy
   module Display
     module Panels
