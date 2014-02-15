@@ -23,6 +23,14 @@ OptionParser.new do |opts|
     "Redis connection string URL"
   ) { |o| options[:url] = o }
   
+  opts.on("-U", "--username USERNAME",
+    "Redis username"
+  ) { |o| options[:username] = o }
+  
+  opts.on("-P", "--password PASSWORD",
+    "Redis password"
+  ) { |o| options[:password] = o }
+  
   opts.on("-h", "--host HOSTNAME",
     "Redis hostname (default: 127.0.0.1)"
   ) { |o| options[:host] = o }
@@ -85,6 +93,8 @@ end.parse!
 @app.configure do |c|
   params = [
     :url,
+    :username,
+    :password,
     :host,
     :port,
     :database,
