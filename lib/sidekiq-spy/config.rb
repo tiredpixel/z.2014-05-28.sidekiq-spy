@@ -22,7 +22,7 @@ module SidekiqSpy
       url = URI.parse(url)
       
       @host     = url.host unless url.host.empty?
-      @port     = url.port unless url.path.empty?
+      @port     = url.port if url.port
       @database = url.path.tr('/', '').to_i unless url.path.empty?
     end
     

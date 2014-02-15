@@ -31,6 +31,24 @@ describe SidekiqSpy::Config do
     end
   end
   
+  describe "#url=" do
+    before do
+      @config = SidekiqSpy::Config.new
+    end
+    
+    it "sets connection string URL when db" do
+      @config.url = 'redis://da.example.com:237/15'
+      
+      @config.url.must_equal 'redis://da.example.com:237/15'
+    end
+    
+    it "sets connection string URL when no db" do
+      @config.url = 'redis://da.example.com:237'
+      
+      @config.url.must_equal 'redis://da.example.com:237/0'
+    end
+  end
+  
   describe "#url" do
     before do
       @config = SidekiqSpy::Config.new
