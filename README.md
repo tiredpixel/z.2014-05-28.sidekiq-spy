@@ -42,6 +42,9 @@ Install using:
 
     $ gem install sidekiq-spy
 
+The default Ruby version supported is defined in `.ruby-version`.
+Any other versions supported are defined in `.travis.yml`.
+
 
 ## Usage
 
