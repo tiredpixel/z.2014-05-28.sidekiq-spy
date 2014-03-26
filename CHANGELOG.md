@@ -6,6 +6,11 @@ For many of commits by [tiredpixel](http://www.tiredpixel.com), the commit
 message provides information and examples.
 
 
+## 0.3.2
+
+- [#11] curses fix for bundle exec on Ruby 2.1.0 and earlier
+
+
 ## 0.3.1
 
 - major refactoring of data structures
