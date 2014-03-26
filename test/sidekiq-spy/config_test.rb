@@ -31,17 +31,51 @@ describe SidekiqSpy::Config do
     end
   end
   
+  describe "#url=" do
+    before do
+      @config = SidekiqSpy::Config.new
+    end
+    
+    it "sets connection string URL when db" do
+      @config.url = 'redis://da.example.com:237/15'
+      
+      @config.url.must_equal 'redis://da.example.com:237/15'
+    end
+    
+    it "sets connection string URL when no db" do
+      @config.url = 'redis://da.example.com:237'
+      
+      @config.url.must_equal 'redis://da.example.com:237/0'
+    end
+    
+    it "sets connection string URL when auth" do
+      @config.url = 'redis://the:dolphins@da.example.com:238/5'
+      
+      @config.url.must_equal 'redis://the:dolphins@da.example.com:238/5'
+    end
+  end
+  
   describe "#url" do
     before do
       @config = SidekiqSpy::Config.new
-      
-      @config.host     = 'da.example.com'
-      @config.port     = 237
-      @config.database = 42
     end
     
     it "returns connection string URL" do
+      @config.host     = 'da.example.com'
+      @config.port     = 237
+      @config.database = 42
+      
       @config.url.must_equal 'redis://da.example.com:237/42'
+    end
+    
+    it "returns connection string URL when auth" do
+      @config.username = 'the'
+      @config.password = 'dolphins'
+      @config.host     = 'da.example.com'
+      @config.port     = 237
+      @config.database = 42
+      
+      @config.url.must_equal 'redis://the:dolphins@da.example.com:237/42'
     end
   end
   

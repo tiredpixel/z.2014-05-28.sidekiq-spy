@@ -18,24 +18,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
   
-  spec.extensions += [
-    'ext/mkrf_conf.rb',
-  ]
-  
   spec.add_dependency "sidekiq", "~> 2.15"
-  # spec.add_dependency "curses", "~> 1.0" # SEE: ext/mkrf_conf.rb
+  spec.add_dependency "curses", ">= 1.0.1"
   
   spec.add_development_dependency "bundler", "~> 1.3", "!= 1.5.0"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "mocha", "~> 0.14"
-  
-  if RUBY_VERSION >= '2.1'
-    # This is only for development; note that RUBY_VERSION is evaluated at
-    # build-time, not install-time. ext/mkrf_conf.rb takes care of the install-
-    # time dependency; this takes care of the development-time dependency.
-    # Note that this doesn't work in Gemfile, since :ruby_21 is not a valid
-    # platform in Ruby 1.9.3 .
-    # BEWARE: repetition; SEE: ext/mkrf_conf.rb
-    spec.add_development_dependency "curses", "~> 1.0"
-  end
 end
