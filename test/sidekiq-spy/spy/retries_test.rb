@@ -1,9 +1,9 @@
 require 'time'
 
 
-require File.expand_path('../../../helper', __FILE__)
+require_relative '../../helper'
 
-require File.expand_path('../../../../lib/sidekiq-spy/spy/retries', __FILE__)
+require_relative '../../../lib/sidekiq-spy/spy/retries'
 
 
 describe SidekiqSpy::Spy::Retries do

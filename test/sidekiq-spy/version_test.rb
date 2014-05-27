@@ -1,6 +1,6 @@
-require File.expand_path('../../helper', __FILE__)
+require_relative '../helper'
 
-require File.expand_path('../../../lib/sidekiq-spy/version', __FILE__)
+require_relative '../../lib/sidekiq-spy/version'
 
 
 describe "SidekiqSpy::VERSION" do

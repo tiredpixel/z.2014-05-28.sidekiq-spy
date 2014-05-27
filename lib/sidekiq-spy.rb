@@ -1,24 +1,24 @@
-require File.expand_path('../sidekiq-spy/version', __FILE__)
-require File.expand_path('../sidekiq-spy/config', __FILE__)
+require_relative 'sidekiq-spy/version'
+require_relative 'sidekiq-spy/config'
 
-require File.expand_path('../sidekiq-spy/translatable', __FILE__)
-require File.expand_path('../sidekiq-spy/app', __FILE__)
+require_relative 'sidekiq-spy/translatable'
+require_relative 'sidekiq-spy/app'
 
-require File.expand_path('../sidekiq-spy/spy/dataspyable', __FILE__)
-require File.expand_path('../sidekiq-spy/spy/stats', __FILE__)
-require File.expand_path('../sidekiq-spy/spy/workers', __FILE__)
-require File.expand_path('../sidekiq-spy/spy/queues', __FILE__)
-require File.expand_path('../sidekiq-spy/spy/retries', __FILE__)
-require File.expand_path('../sidekiq-spy/spy/schedules', __FILE__)
+require_relative 'sidekiq-spy/spy/dataspyable'
+require_relative 'sidekiq-spy/spy/stats'
+require_relative 'sidekiq-spy/spy/workers'
+require_relative 'sidekiq-spy/spy/queues'
+require_relative 'sidekiq-spy/spy/retries'
+require_relative 'sidekiq-spy/spy/schedules'
 
-require File.expand_path('../sidekiq-spy/display/screen', __FILE__)
-require File.expand_path('../sidekiq-spy/display/panel', __FILE__)
-require File.expand_path('../sidekiq-spy/display/subpanel', __FILE__)
+require_relative 'sidekiq-spy/display/screen'
+require_relative 'sidekiq-spy/display/panel'
+require_relative 'sidekiq-spy/display/subpanel'
 
-require File.expand_path('../sidekiq-spy/display/panels/header', __FILE__)
-require File.expand_path('../sidekiq-spy/display/panels/redis_stats', __FILE__)
-require File.expand_path('../sidekiq-spy/display/panels/sidekiq_stats', __FILE__)
-require File.expand_path('../sidekiq-spy/display/panels/workers', __FILE__)
-require File.expand_path('../sidekiq-spy/display/panels/queues', __FILE__)
-require File.expand_path('../sidekiq-spy/display/panels/retries', __FILE__)
-require File.expand_path('../sidekiq-spy/display/panels/schedules', __FILE__)
+require_relative 'sidekiq-spy/display/panels/header'
+require_relative 'sidekiq-spy/display/panels/redis_stats'
+require_relative 'sidekiq-spy/display/panels/sidekiq_stats'
+require_relative 'sidekiq-spy/display/panels/workers'
+require_relative 'sidekiq-spy/display/panels/queues'
+require_relative 'sidekiq-spy/display/panels/retries'
+require_relative 'sidekiq-spy/display/panels/schedules'

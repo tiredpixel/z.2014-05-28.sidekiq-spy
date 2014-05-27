@@ -1,6 +1,6 @@
-require File.expand_path('../../../helper', __FILE__)
+require_relative '../../helper'
 
-require File.expand_path('../../../../lib/sidekiq-spy/display/subpanel', __FILE__)
+require_relative '../../../lib/sidekiq-spy/display/subpanel'
 
 
 describe SidekiqSpy::Display::Subpanel do

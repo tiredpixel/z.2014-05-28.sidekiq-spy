@@ -1,9 +1,9 @@
 require 'time'
 
 
-require File.expand_path('../../../helper', __FILE__)
+require_relative '../../helper'
 
-require File.expand_path('../../../../lib/sidekiq-spy/spy/schedules', __FILE__)
+require_relative '../../../lib/sidekiq-spy/spy/schedules'
 
 
 describe SidekiqSpy::Spy::Schedules do

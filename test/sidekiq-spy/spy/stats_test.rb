@@ -1,9 +1,9 @@
 require 'redis/namespace'
 require 'json'
 
-require File.expand_path('../../../helper', __FILE__)
+require_relative '../../helper'
 
-require File.expand_path('../../../../lib/sidekiq-spy/spy/stats', __FILE__)
+require_relative '../../../lib/sidekiq-spy/spy/stats'
 
 
 describe SidekiqSpy::Spy::Stats do
